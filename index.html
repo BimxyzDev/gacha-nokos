@@ -1,0 +1,764 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Bimxyz · Gacha Nokos</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700;14..32,800;14..32,900&display=swap" rel="stylesheet" />
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Inter', sans-serif;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            background: #0b0a16;
+            color: #e8edff;
+        }
+        .card {
+            max-width: 820px;
+            width: 100%;
+            background: rgba(18, 22, 40, 0.85);
+            backdrop-filter: blur(24px);
+            -webkit-backdrop-filter: blur(24px);
+            border-radius: 40px;
+            padding: 32px 28px 40px;
+            border: 1px solid rgba(79, 140, 255, 0.15);
+            box-shadow: 0 40px 80px rgba(0, 0, 0, 0.8), 0 0 0 1px rgba(79, 140, 255, 0.05);
+            position: relative;
+        }
+        .header {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            margin-bottom: 28px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid rgba(79, 140, 255, 0.08);
+        }
+        .logo {
+            width: 48px;
+            height: 48px;
+            background: linear-gradient(145deg, #4f8cff, #3b6fd9);
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            font-weight: 900;
+            color: #fff;
+            box-shadow: 0 8px 24px rgba(79, 140, 255, 0.35);
+            flex-shrink: 0;
+        }
+        .header h1 {
+            font-size: 22px;
+            font-weight: 800;
+            letter-spacing: -0.3px;
+            background: linear-gradient(135deg, #b7ceff, #4f8cff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .header .tag {
+            margin-left: auto;
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            padding: 5px 16px;
+            border-radius: 100px;
+            background: rgba(79, 140, 255, 0.12);
+            border: 1px solid rgba(79, 140, 255, 0.2);
+            color: #8bb3ff;
+        }
+        .support-btn {
+            background: rgba(79, 140, 255, 0.1);
+            border: 1px solid rgba(79, 140, 255, 0.2);
+            color: #8bb3ff;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            cursor: pointer;
+            transition: all 0.2s;
+            margin-left: 8px;
+            flex-shrink: 0;
+        }
+        .support-btn:hover {
+            background: rgba(79, 140, 255, 0.25);
+            transform: scale(1.05);
+        }
+        .otp-input-area {
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 28px;
+            padding: 18px 20px 20px;
+            margin-bottom: 28px;
+            border: 1px solid rgba(79, 140, 255, 0.06);
+        }
+        .otp-input-area .label {
+            font-size: 13px;
+            font-weight: 600;
+            color: #8aa9ff;
+            margin-bottom: 10px;
+            display: block;
+        }
+        .otp-form {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+        .otp-form input {
+            flex: 1 1 200px;
+            padding: 14px 18px;
+            border-radius: 60px;
+            border: 1px solid rgba(79, 140, 255, 0.15);
+            background: rgba(255, 255, 255, 0.04);
+            color: #e8edff;
+            font-size: 15px;
+            font-weight: 500;
+            font-family: 'Inter', sans-serif;
+            transition: 0.2s;
+            outline: none;
+        }
+        .otp-form input::placeholder {
+            color: #5a6a8a;
+            font-weight: 400;
+        }
+        .otp-form input:focus {
+            border-color: #4f8cff;
+            box-shadow: 0 0 0 3px rgba(79, 140, 255, 0.15);
+        }
+        .otp-form button {
+            padding: 14px 28px;
+            border-radius: 60px;
+            border: none;
+            font-family: 'Inter', sans-serif;
+            font-weight: 700;
+            font-size: 14px;
+            cursor: pointer;
+            transition: all 0.2s;
+            background: linear-gradient(145deg, #4f8cff, #3b6fd9);
+            color: #fff;
+            box-shadow: 0 8px 24px rgba(79, 140, 255, 0.3);
+            flex-shrink: 0;
+        }
+        .otp-form button:hover {
+            transform: scale(1.02);
+            box-shadow: 0 12px 32px rgba(79, 140, 255, 0.4);
+        }
+        .otp-form button:active {
+            transform: scale(0.97);
+        }
+        .otp-form button:disabled {
+            opacity: 0.5;
+            pointer-events: none;
+        }
+        .table-wrap {
+            overflow-x: auto;
+            margin-bottom: 24px;
+            border-radius: 20px;
+            border: 1px solid rgba(79, 140, 255, 0.06);
+            background: rgba(0, 0, 0, 0.2);
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 14px;
+        }
+        th {
+            text-align: left;
+            padding: 14px 16px;
+            color: #8aa9ff;
+            font-weight: 600;
+            letter-spacing: 0.3px;
+            border-bottom: 1px solid rgba(79, 140, 255, 0.08);
+        }
+        td {
+            padding: 12px 16px;
+            border-bottom: 1px solid rgba(79, 140, 255, 0.04);
+            color: #d6e0ff;
+        }
+        tr:last-child td {
+            border-bottom: none;
+        }
+        tr:hover td {
+            background: rgba(79, 140, 255, 0.04);
+        }
+        .btn-cek {
+            background: rgba(79, 140, 255, 0.12);
+            border: 1px solid rgba(79, 140, 255, 0.2);
+            color: #8bb3ff;
+            padding: 6px 18px;
+            border-radius: 40px;
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-family: 'Inter', sans-serif;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .btn-cek:hover {
+            background: rgba(79, 140, 255, 0.25);
+            color: #fff;
+            border-color: rgba(79, 140, 255, 0.4);
+        }
+        .btn-cek:active {
+            transform: scale(0.95);
+        }
+        .pagination {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 16px;
+            margin-top: 12px;
+            flex-wrap: wrap;
+        }
+        .pagination button {
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid rgba(79, 140, 255, 0.1);
+            color: #b0c8f0;
+            padding: 8px 20px;
+            border-radius: 40px;
+            font-weight: 600;
+            font-size: 14px;
+            cursor: pointer;
+            transition: 0.2s;
+            font-family: 'Inter', sans-serif;
+        }
+        .pagination button:hover:not(:disabled) {
+            background: rgba(79, 140, 255, 0.12);
+            border-color: rgba(79, 140, 255, 0.25);
+            color: #fff;
+        }
+        .pagination button:disabled {
+            opacity: 0.3;
+            cursor: not-allowed;
+        }
+        .pagination span {
+            color: #8aa9ff;
+            font-weight: 500;
+            font-size: 14px;
+        }
+        .total-info {
+            text-align: center;
+            font-size: 14px;
+            color: #6a8fc0;
+            margin-bottom: 16px;
+        }
+        .empty-state {
+            text-align: center;
+            padding: 40px 20px;
+            color: #5a6a8a;
+            font-size: 15px;
+        }
+        .empty-state .icon {
+            font-size: 40px;
+            display: block;
+            margin-bottom: 12px;
+        }
+        .loading-text {
+            text-align: center;
+            padding: 30px 20px;
+            color: #8aa9ff;
+            font-weight: 500;
+            animation: pulse 1.2s infinite;
+        }
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.4; }
+        }
+        .otp-section {
+            background: rgba(0, 0, 0, 0.25);
+            border-radius: 24px;
+            padding: 20px 22px;
+            border: 1px solid rgba(79, 140, 255, 0.04);
+            min-height: 80px;
+            transition: all 0.3s ease;
+            margin-top: 28px;
+        }
+        .otp-section .otp-title {
+            font-size: 13px;
+            font-weight: 600;
+            color: #6a8fc0;
+            margin-bottom: 12px;
+            letter-spacing: 0.5px;
+        }
+        .otp-section .otp-list {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+        .otp-section .otp-item {
+            background: rgba(79, 140, 255, 0.04);
+            padding: 10px 16px;
+            border-radius: 14px;
+            font-size: 14px;
+            font-weight: 500;
+            color: #b7ceff;
+            border-left: 3px solid rgba(79, 140, 255, 0.3);
+        }
+        .otp-section .empty {
+            color: #5a6a8a;
+            font-size: 14px;
+            font-weight: 400;
+        }
+        .otp-section .status {
+            color: #8bb3ff;
+            font-weight: 500;
+            font-size: 14px;
+        }
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            padding: 20px;
+        }
+        .modal-overlay.active {
+            display: flex;
+        }
+        .modal-box {
+            max-width: 440px;
+            width: 100%;
+            background: rgba(18, 22, 40, 0.95);
+            border-radius: 40px;
+            padding: 40px 32px 36px;
+            border: 1px solid rgba(79, 140, 255, 0.15);
+            box-shadow: 0 60px 120px rgba(0, 0, 0, 0.9);
+            text-align: center;
+            animation: modalIn 0.3s ease;
+        }
+        @keyframes modalIn {
+            from {
+                opacity: 0;
+                transform: scale(0.95) translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1) translateY(0);
+            }
+        }
+        .modal-box .modal-icon {
+            font-size: 48px;
+            margin-bottom: 12px;
+            display: block;
+        }
+        .modal-box h2 {
+            font-size: 24px;
+            font-weight: 800;
+            color: #b7ceff;
+            margin-bottom: 8px;
+        }
+        .modal-box p {
+            color: #8aa3c8;
+            font-size: 15px;
+            line-height: 1.6;
+            margin-bottom: 24px;
+        }
+        .modal-box .modal-btn {
+            display: inline-block;
+            padding: 16px 32px;
+            border-radius: 60px;
+            border: none;
+            font-family: 'Inter', sans-serif;
+            font-weight: 700;
+            font-size: 16px;
+            cursor: pointer;
+            transition: all 0.2s;
+            text-decoration: none;
+            margin: 4px 6px;
+        }
+        .modal-box .btn-channel {
+            background: linear-gradient(145deg, #25d366, #1da85c);
+            color: #fff;
+            box-shadow: 0 8px 24px rgba(37, 211, 102, 0.3);
+        }
+        .modal-box .btn-channel:hover {
+            transform: scale(1.03);
+            box-shadow: 0 12px 32px rgba(37, 211, 102, 0.4);
+        }
+        .modal-box .btn-close {
+            background: rgba(255, 255, 255, 0.05);
+            color: #8aa3c8;
+            border: 1px solid rgba(255, 255, 255, 0.06);
+        }
+        .modal-box .btn-close:hover {
+            background: rgba(255, 255, 255, 0.1);
+            color: #fff;
+        }
+        .modal-box .modal-actions {
+            display: flex;
+            gap: 12px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 8px;
+        }
+        .toast {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(18, 22, 40, 0.95);
+            backdrop-filter: blur(12px);
+            padding: 14px 28px;
+            border-radius: 60px;
+            border: 1px solid rgba(79, 140, 255, 0.15);
+            color: #b7ceff;
+            font-weight: 500;
+            font-size: 14px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6);
+            z-index: 2000;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            pointer-events: none;
+            max-width: 90%;
+        }
+        .toast.show {
+            opacity: 1;
+        }
+        @media (max-width: 600px) {
+            .card {
+                padding: 20px 16px 28px;
+            }
+            th, td {
+                padding: 10px 12px;
+                font-size: 13px;
+            }
+            .btn-cek {
+                padding: 4px 14px;
+                font-size: 12px;
+            }
+            .pagination button {
+                padding: 6px 16px;
+                font-size: 13px;
+            }
+            .header h1 {
+                font-size: 18px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="card">
+        <div class="header">
+            <div class="logo">B</div>
+            <h1>Bimxyz · Gacha</h1>
+            <span class="tag">Nokos</span>
+            <button class="support-btn" id="supportBtn" title="Support">♡</button>
+        </div>
+
+        <div class="otp-input-area">
+            <span class="label">🔍 Cek OTP via Nomor</span>
+            <div class="otp-form">
+                <input type="text" id="otpInput" placeholder="+6281234567890" />
+                <button id="cekOtpBtn">Cek OTP</button>
+            </div>
+        </div>
+
+        <div class="total-info" id="totalInfo">Memuat data nomor...</div>
+
+        <div class="table-wrap" id="tableWrap">
+            <div class="loading-text">⏳ Mengambil daftar nomor virtual...</div>
+        </div>
+
+        <div class="pagination" id="pagination">
+            <button id="prevPage" disabled>‹ Sebelumnya</button>
+            <span id="pageInfo">Halaman 1</span>
+            <button id="nextPage">Selanjutnya ›</button>
+        </div>
+
+        <div class="otp-section" id="otpSection">
+            <div class="otp-title">📥 HASIL OTP</div>
+            <div id="otpContent">
+                <div class="empty">Belum ada data OTP</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="supportModal">
+        <div class="modal-box">
+            <span class="modal-icon">💙</span>
+            <h2>Support Saluran Admin</h2>
+            <p>
+                Gabung ke saluran WhatsApp resmi Bimxyz untuk info terbaru, update tools, dan bantuan langsung dari admin.
+            </p>
+            <div class="modal-actions">
+                <a href="https://whatsapp.com/channel/0029VbB7FQv8PgsIvPPuJs2p" target="_blank" class="modal-btn btn-channel">
+                    📲 Buka Saluran
+                </a>
+                <button class="modal-btn btn-close" id="closeModalBtn">Tutup</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="toast" id="toast"></div>
+
+    <script>
+        (function() {
+            // ── DOM refs ──
+            const tableWrap = document.getElementById('tableWrap');
+            const totalInfo = document.getElementById('totalInfo');
+            const prevBtn = document.getElementById('prevPage');
+            const nextBtn = document.getElementById('nextPage');
+            const pageInfo = document.getElementById('pageInfo');
+            const cekOtpBtn = document.getElementById('cekOtpBtn');
+            const refreshOtpBtn = document.getElementById('refreshOtpBtn');
+            const otpInput = document.getElementById('otpInput');
+            const otpContent = document.getElementById('otpContent');
+            const supportBtn = document.getElementById('supportBtn');
+            const supportModal = document.getElementById('supportModal');
+            const closeModalBtn = document.getElementById('closeModalBtn');
+            const toast = document.getElementById('toast');
+
+            // ── State ──
+            let allNumbers = [];
+            let currentPage = 0;
+            const perPage = 50;
+            let totalNumbers = 0;
+            let isLoading = false;
+            let otpData = [];
+            let totalOtp = 0;
+
+            // ── Toast ──
+            let toastTimeout = null;
+            function showToast(msg) {
+                toast.textContent = msg;
+                toast.classList.add('show');
+                clearTimeout(toastTimeout);
+                toastTimeout = setTimeout(() => toast.classList.remove('show'), 2500);
+            }
+
+            // ── Render OTP ──
+            function renderOtp() {
+                if (isLoading) {
+                    otpContent.innerHTML = `<div class="loading-text">⏳ Memeriksa OTP...</div>`;
+                    return;
+                }
+                if (otpData.length === 0) {
+                    otpContent.innerHTML = `
+                        <div class="status">Total OTP: ${totalOtp}</div>
+                        <div class="empty">Belum ada OTP baru yang masuk.</div>
+                    `;
+                    return;
+                }
+                let html = `<div class="status">Total OTP: ${totalOtp}</div><div class="otp-list">`;
+                otpData.forEach((otp, i) => {
+                    html += `<div class="otp-item">${i+1}. ${otp}</div>`;
+                });
+                html += `</div>`;
+                otpContent.innerHTML = html;
+            }
+
+            // ── Render Table ──
+            function renderTable() {
+                if (isLoading && allNumbers.length === 0) {
+                    tableWrap.innerHTML = `<div class="loading-text">⏳ Mengambil daftar nomor virtual...</div>`;
+                    return;
+                }
+                if (allNumbers.length === 0) {
+                    tableWrap.innerHTML = `
+                        <div class="empty-state">
+                            <span class="icon">📭</span>
+                            Tidak ada nomor tersedia.
+                        </div>
+                    `;
+                    return;
+                }
+                const start = currentPage * perPage;
+                const end = Math.min(start + perPage, allNumbers.length);
+                const pageData = allNumbers.slice(start, end);
+                let html = `<table>
+                    <thead><tr><th>#</th><th>Nomor</th><th>Negara</th><th>Aksi</th></tr></thead>
+                    <tbody>`;
+                pageData.forEach((item, idx) => {
+                    const num = item.number || item;
+                    const country = item.country || 'Tidak diketahui';
+                    const flag = item.flag || '🌍';
+                    html += `<tr>
+                        <td>${start + idx + 1}</td>
+                        <td><strong>${num}</strong></td>
+                        <td>${flag} ${country}</td>
+                        <td><button class="btn-cek" data-number="${num}">📋 Cek & Chat</button></td>
+                    </tr>`;
+                });
+                html += `</tbody></table>`;
+                tableWrap.innerHTML = html;
+
+                // event listener untuk tombol "Cek & Chat"
+                document.querySelectorAll('.btn-cek').forEach(btn => {
+                    btn.addEventListener('click', function(e) {
+                        const number = this.dataset.number;
+                        if (!number) return;
+                        // Salin nomor
+                        navigator.clipboard.writeText(number).then(() => {
+                            showToast(`✅ Nomor ${number} disalin!`);
+                        }).catch(() => {
+                            // fallback
+                            const ta = document.createElement('textarea');
+                            ta.value = number;
+                            document.body.appendChild(ta);
+                            ta.select();
+                            document.execCommand('copy');
+                            ta.remove();
+                            showToast(`✅ Nomor ${number} disalin!`);
+                        });
+                        // Buka WhatsApp
+                        const clean = number.replace(/[^0-9+]/g, '');
+                        window.open(`https://wa.me/${clean}`, '_blank');
+                    });
+                });
+
+                updatePagination();
+            }
+
+            // ── Pagination Controls ──
+            function updatePagination() {
+                const totalPages = Math.ceil(allNumbers.length / perPage);
+                pageInfo.textContent = `Halaman ${currentPage + 1} dari ${totalPages || 1}`;
+                prevBtn.disabled = currentPage === 0;
+                nextBtn.disabled = currentPage >= totalPages - 1 || totalPages === 0;
+            }
+
+            function goToPage(page) {
+                const totalPages = Math.ceil(allNumbers.length / perPage);
+                if (page < 0 || page >= totalPages) return;
+                currentPage = page;
+                renderTable();
+            }
+
+            prevBtn.addEventListener('click', () => goToPage(currentPage - 1));
+            nextBtn.addEventListener('click', () => goToPage(currentPage + 1));
+
+            // ── Fetch Virtual Numbers ──
+            async function fetchNumbers() {
+                isLoading = true;
+                tableWrap.innerHTML = `<div class="loading-text">⏳ Mengambil daftar nomor virtual...</div>`;
+                totalInfo.textContent = 'Memuat data nomor...';
+
+                try {
+                    const url = 'https://api.synoxcloud.xyz/tools/virtual-numbers';
+                    const resp = await fetch(url);
+                    if (!resp.ok) throw new Error(`HTTP ${resp.status}`);
+                    const data = await resp.json();
+                    if (!data || !data.status || !data.result || !data.result.numbers || !Array.isArray(data.result.numbers)) {
+                        throw new Error(data.message || 'Format API tidak valid');
+                    }
+                    allNumbers = data.result.numbers;
+                    totalNumbers = data.result.total || allNumbers.length;
+                    totalInfo.textContent = `Total tersedia: ${totalNumbers} nomor`;
+                    currentPage = 0;
+                    renderTable();
+                    showToast(`✅ ${allNumbers.length} nomor berhasil dimuat`);
+                } catch (err) {
+                    console.error('Fetch error:', err);
+                    let msg = err.message;
+                    if (msg.includes('Failed to fetch') || msg.includes('NetworkError')) {
+                        msg = 'Gagal terhubung ke API. CORS mungkin diblokir. Coba gunakan VPN atau ekstensi CORS.';
+                    }
+                    tableWrap.innerHTML = `
+                        <div class="empty-state">
+                            <span class="icon">⚠️</span>
+                            ${msg}
+                        </div>
+                    `;
+                    totalInfo.textContent = 'Gagal memuat data';
+                    showToast('❌ ' + msg);
+                } finally {
+                    isLoading = false;
+                }
+            }
+
+            // ── Cek OTP ──
+            async function cekOtp(number) {
+                if (isLoading) return;
+                if (!number || number.trim() === '') {
+                    showToast('Masukkan nomor telepon');
+                    return;
+                }
+                isLoading = true;
+                cekOtpBtn.disabled = true;
+                otpData = [];
+                totalOtp = 0;
+                renderOtp();
+
+                try {
+                    const encoded = encodeURIComponent(number.trim());
+                    const url = `https://api.synoxcloud.xyz/tools/otp-checker?number=${encoded}`;
+                    const resp = await fetch(url);
+                    if (!resp.ok) throw new Error(`HTTP ${resp.status}`);
+                    const data = await resp.json();
+                    if (!data || !data.status) {
+                        throw new Error(data.message || 'Gagal cek OTP');
+                    }
+                    const otps = data.result?.otps || [];
+                    totalOtp = data.result?.total || 0;
+                    otpData = Array.isArray(otps) ? otps : [];
+                    renderOtp();
+                    if (otpData.length > 0) {
+                        showToast(`✅ Ditemukan ${otpData.length} OTP untuk ${number.trim()}`);
+                    } else {
+                        showToast(`ℹ️ Total ${totalOtp} OTP, tidak ada yang baru.`);
+                    }
+                } catch (err) {
+                    console.error('OTP error:', err);
+                    let msg = err.message;
+                    if (msg.includes('Failed to fetch') || msg.includes('NetworkError')) {
+                        msg = 'Gagal terhubung ke API OTP. CORS mungkin diblokir.';
+                    }
+                    showToast('❌ ' + msg);
+                    otpData = [];
+                    totalOtp = 0;
+                    renderOtp();
+                } finally {
+                    isLoading = false;
+                    cekOtpBtn.disabled = false;
+                }
+            }
+
+            // ── Event binding ──
+            cekOtpBtn.addEventListener('click', () => {
+                const val = otpInput.value.trim();
+                cekOtp(val);
+            });
+
+            otpInput.addEventListener('keydown', (e) => {
+                if (e.key === 'Enter') cekOtpBtn.click();
+            });
+
+            supportBtn.addEventListener('click', () => {
+                supportModal.classList.add('active');
+            });
+            closeModalBtn.addEventListener('click', () => {
+                supportModal.classList.remove('active');
+            });
+            supportModal.addEventListener('click', (e) => {
+                if (e.target === supportModal) supportModal.classList.remove('active');
+            });
+
+            // ── Start ──
+            fetchNumbers();
+
+            // Refresh OTP bisa digunakan untuk cek ulang nomor yang sedang aktif? Kita tidak punya nomor aktif sekarang, jadi kita disable.
+            // Tapi kita tambahkan tombol refresh di UI? Kita tidak punya tombol refresh, jadi skip.
+        })();
+    </script>
+</body>
+</html>
